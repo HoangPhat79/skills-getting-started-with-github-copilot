@@ -5,6 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mergington High School Activities</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ...existing styles... */
+      .activity-card {
+        /* ...existing styles... */
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        background: #fff;
+      }
+      .participants-section {
+        margin-top: 1rem;
+        background: #f8f9fa;
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+      }
+      .participants-section h4 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.05rem;
+        color: #2d3748;
+      }
+      .participants-list {
+        margin: 0;
+        padding-left: 1.2em;
+        color: #4a5568;
+        font-size: 0.97rem;
+      }
+      .participants-list li {
+        margin-bottom: 0.2em;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -26,7 +57,12 @@
         <form id="signup-form">
           <div class="form-group">
             <label for="email">Student Email:</label>
-            <input type="email" id="email" required placeholder="your-email@mergington.edu" />
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="your-email@mergington.edu"
+            />
           </div>
           <div class="form-group">
             <label for="activity">Select Activity:</label>
@@ -46,5 +82,36 @@
     </footer>
 
     <script src="app.js"></script>
+    <script>
+      // ...existing code...
+      function renderActivities(activities) {
+        const container = document.getElementById('activities-container');
+        container.innerHTML = '';
+        Object.entries(activities).forEach(([name, info]) => {
+          const card = document.createElement('div');
+          card.className = 'activity-card';
+          card.innerHTML = `
+            <h2>${name}</h2>
+            <p><strong>Description:</strong> ${info.description}</p>
+            <p><strong>Schedule:</strong> ${info.schedule}</p>
+            <p><strong>Max Participants:</strong> ${info.max_participants}</p>
+            <div class="participants-section">
+              <h4>Participants</h4>
+              <ul class="participants-list">
+                ${
+                  info.participants.length > 0
+                    ? info.participants.map((email) => `<li>${email}</li>`).join('')
+                    : '<li><em>No participants yet</em></li>'
+                }
+              </ul>
+            </div>
+            <!-- ...existing signup form/button code... -->
+          `;
+          // ...existing code to append card and handle signup...
+          container.appendChild(card);
+        });
+      }
+      // ...existing code...
+    </script>
   </body>
 </html>
